@@ -14,38 +14,43 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String? @unique
-  username String  @unique
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  username String @unique
   name     String
   password String
 
   chatHistory Message[]
-  files       Collection[]
+  collections Collection[]
 }
 
 model Message {
   id         Int      @id @default(autoincrement())
+  userId     Int
+  isSender   Boolean
+  body       String
+  source     String
   createdAt  DateTime
   uploadedAt DateTime @default(now())
-  isSender   Boolean
-  source     String
-  content    String
-  userId     Int
-  owner      User     @relation(fields: [userId], references: [id])
+
+  owner User @relation(fields: [userId], references: [id])
 }
 
 model Collection {
   id     Int    @id @default(autoincrement())
-  title  String @unique
   userId Int
-  owner  User   @relation(fields: [userId], references: [id])
-  files  File[]
+  title  String @unique
+
+  files File[]
+  owner User   @relation(fields: [userId], references: [id])
 }
 
 model File {
-  id           Int        @id @default(autoincrement())
-  type         String
+  id           Int      @id @default(autoincrement())
   collectionId Int
-  collection   Collection @relation(fields: [collectionId], references: [id])
+  type         String
+  createdAt    DateTime
+  uploadedAt   DateTime @default(now())
+
+  collection Collection @relation(fields: [collectionId], references: [id])
 }
