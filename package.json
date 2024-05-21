@@ -8,13 +8,7 @@
     "build": "tsc -w",
     "start": "node dist/app.js",
     "dev": "nodemon --files --ext ts,js,json --exec 'node --no-warnings --loader ts-node/esm backend/src/app.ts'",
-    "seed": "tsc && node dist/seed.js",
-    "front": {
-      "dev": "next dev",
-      "build": "next build",
-      "start": "next start",
-      "lint": "next lint"
-    }
+    "seed": "tsc && node dist/seed.js"
   },
   "keywords": [],
   "author": "",
